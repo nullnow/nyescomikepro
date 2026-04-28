@@ -56,7 +56,7 @@ export class AboutController {
     @Res()
     res: express.Response,
   ) {
-    await this.aboutService.updateAbout(description);
+    await this.aboutService.updateAbout(description || '');
 
     return res.redirect('/about/edit');
   }
