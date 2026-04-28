@@ -23,7 +23,26 @@ export class AboutService {
   }
 
   async updateAbout(description: string) {
-    const cleanHtml = sanitizeHtml(description);
+    const cleanHtml = sanitizeHtml(description, {
+      allowedTags: [
+        'p',
+        'br',
+        'strong',
+        'em',
+        'ul',
+        'ol',
+        'li',
+        'a',
+        'h1',
+        'h2',
+        'h3',
+        'blockquote',
+      ],
+
+      allowedAttributes: {
+        a: ['href', 'target'],
+      },
+    });
 
     return this.aboutModel.findOneAndUpdate(
       {},

@@ -7,10 +7,10 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import { Response } from 'express';
+import express from 'express';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { AboutService } from './about.service';
 import { SocialsService } from '../socials/socials.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('about')
 export class AboutController {
@@ -19,47 +19,33 @@ export class AboutController {
     private socialsService: SocialsService,
   ) {}
 
-  // ----------------
   // VIEW ABOUT
-  // ----------------
 
   @UseGuards(JwtAuthGuard)
   @Get()
   @Render('about/view')
   async viewAbout() {
-    const about = await this.aboutService.getAbout();
-
-    const socials = await this.socialsService.getSocials();
-
     return {
-      title: 'About',
-      about,
-      socials,
+      about: await this.aboutService.getAbout(),
+
+      socials: await this.socialsService.getSocials(),
     };
   }
 
-  // ----------------
-  // EDIT FORM
-  // ----------------
+  // SINGLE EDIT PAGE
 
   @UseGuards(JwtAuthGuard)
   @Get('edit')
   @Render('about/edit')
   async editAbout() {
-    const about = await this.aboutService.getAbout();
-
-    const socials = await this.socialsService.getSocials();
-
     return {
-      title: 'Edit About',
-      about,
-      socials,
+      about: await this.aboutService.getAbout(),
+
+      socials: await this.socialsService.getSocials(),
     };
   }
 
-  // ----------------
-  // UPDATE ABOUT
-  // ----------------
+  // SAVE ABOUT FORM
 
   @UseGuards(JwtAuthGuard)
   @Post('edit')
@@ -68,10 +54,23 @@ export class AboutController {
     description: string,
 
     @Res()
-    res: Response,
+    res: express.Response,
   ) {
     await this.aboutService.updateAbout(description);
 
-    return res.redirect('/about');
+    return res.redirect('/about/edit');
+  }
+
+  // SAVE SOCIALS FORM
+
+  @UseGuards(JwtAuthGuard)
+  @Post('socials')
+  @Post('update') // Or whatever your route is
+  async updateSocials(@Body() body, @Res() res: express.Response) {
+    const socialsArray = Array.isArray(body) ? body : [body];
+
+    await this.socialsService.replaceAll(socialsArray);
+
+    return res.redirect('/about/edit');
   }
 }
