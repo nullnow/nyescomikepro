@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyesco | New Release</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              nyesco: {
+                dark: '#0f172a',
+                accent: '#f8fafc',
+                muted: '#64748b',
+                border: '#334155',
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body>
+    <%- include('../../partials/admin-navbar') %>
+
+    <main class="max-w-3xl mx-auto px-6 py-16">
+      <header class="mb-12">
+        <div class="h-1 bg-nyesco-accent w-16 mb-4"></div>
+        <h1 class="text-4xl font-black uppercase italic tracking-tighter">
+          New Entry
+        </h1>
+        <p class="text-nyesco-muted text-xs uppercase tracking-[0.3em] mt-2">
+          Archive Addition
+        </p>
+      </header>
+
+      <section
+        class="bg-slate-900/40 border border-nyesco-border p-8 rounded-sm shadow-2xl relative"
+      >
+        <form action="/catalogue/create" method="POST" class="space-y-8">
+          <div class="space-y-2">
+            <label
+              class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted"
+              >Composition Title</label
+            >
+            <input
+              type="text"
+              name="title"
+              required
+              placeholder="e.g. Midnight Engineering"
+              class="w-full bg-nyesco-dark border border-nyesco-border p-4 focus:border-nyesco-accent outline-none transition-all text-nyesco-accent"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted"
+              >Category</label
+            >
+            <select
+              name="type"
+              required
+              class="w-full bg-nyesco-dark border border-nyesco-border p-4 focus:border-nyesco-accent outline-none text-nyesco-accent"
+            >
+              <option value="Instrumental">Instrumental</option>
+              <option value="Song">Song</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label
+              class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted"
+              >Source URL</label
+            >
+            <input
+              type="url"
+              name="link"
+              required
+              placeholder="https://..."
+              class="w-full bg-nyesco-dark border border-nyesco-border p-4 focus:border-nyesco-accent outline-none transition-all text-nyesco-accent"
+            />
+          </div>
+
+          <div class="flex items-center justify-between pt-6">
+            <a
+              href="/catalogue"
+              class="text-xs uppercase font-bold text-nyesco-muted hover:text-nyesco-accent"
+              >[ Cancel ]</a
+            >
+            <button
+              type="submit"
+              class="bg-nyesco-accent text-nyesco-dark px-10 py-3 font-black uppercase tracking-widest text-xs hover:bg-white shadow-[4px_4px_0px_0px_rgba(51,65,85,1)] transition-all"
+            >
+              Add Music Item
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

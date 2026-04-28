@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nyesco | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              nyesco: {
+                dark: '#0f172a',
+                accent: '#f8fafc',
+                muted: '#64748b',
+                border: '#334155',
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .tab-btn {
+        @apply px-6 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-nyesco-muted border-t border-l border-r border-transparent transition-all;
+      }
+      .active-tab {
+        @apply border-nyesco-border bg-slate-900/40 text-nyesco-accent;
+      }
+      .hidden-item {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../../partials/admin-navbar') %>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+      <header
+        class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
+      >
+        <div>
+          <p
+            class="text-[10px] font-black uppercase tracking-[0.5em] text-nyesco-muted mb-2"
+          >
+            Music Archive
+          </p>
+          <h1 class="text-6xl font-black uppercase italic tracking-tighter">
+            Inventory
+          </h1>
+        </div>
+
+        <a
+          href="/catalogue/new"
+          class="bg-nyesco-accent text-nyesco-dark px-8 py-3 font-black uppercase text-xs tracking-widest hover:bg-white transition-all shadow-[6px_6px_0px_0px_rgba(51,65,85,1)]"
+        >
+          + New Entry
+        </a>
+      </header>
+
+      <div class="flex gap-2 mb-8 border-b border-nyesco-border pb-0">
+        <button
+          onclick="switchTab('all')"
+          id="tab-all"
+          class="tab-btn active-tab"
+        >
+          All Records
+        </button>
+        <span class="px-3">|</span>
+        <button
+          onclick="switchTab('Instrumental')"
+          id="tab-instrumental"
+          class="tab-btn"
+        >
+          Instrumentals
+        </button>
+        <span class="px-3">|</span>
+        <button onclick="switchTab('Song')" id="tab-song" class="tab-btn">
+          Songs
+        </button>
+      </div>
+
+      <div id="catalogue-container" class="space-y-4">
+        <% catalogueItems.forEach(function(item) { %>
+        <div
+          class="catalogue-item border border-nyesco-border p-6 flex flex-col md:flex-row md:items-center justify-between group hover:border-nyesco-dark transition-colors"
+          data-type="<%= item.type %>"
+        >
+          <div class="flex items-center gap-6">
+            <div
+              class="text-[10px] font-black text-nyesco-muted uppercase tracking-tighter w-12 border-r border-nyesco-border"
+            >
+              <%= item.type === 'Instrumental' ? 'INST' : 'SONG' %>
+            </div>
+            <div>
+              <h3
+                class="text-xl font-bold uppercase tracking-tight group-hover:text-nyesco-dark transition-colors"
+              >
+                <%= item.title %>
+              </h3>
+              <p
+                class="text-[10px] text-nyesco-muted uppercase tracking-widest mt-1"
+              >
+                Added On: <%= new Date(item.createdAt).toLocaleDateString() %>
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-8 mt-4 md:mt-0">
+            <a
+              href="<%= item.link %>"
+              target="_blank"
+              class="text-[10px] font-black uppercase tracking-widest hover:text-blue underline decoration-nyesco-muted"
+            >
+              Preview
+            </a>
+            <a
+              href="/catalogue/edit/<%= item._id %>"
+              class="bg-nyesco-border/30 px-4 py-2 text-[10px] font-bold uppercase hover:bg-nyesco-dark hover:text-white transition-all"
+            >
+              Edit
+            </a>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </main>
+
+    <script>
+      function switchTab(type) {
+        const items = document.querySelectorAll('.catalogue-item');
+        const buttons = document.querySelectorAll('.tab-btn');
+
+        // Update Buttons UI
+        buttons.forEach((btn) => btn.classList.remove('active-tab'));
+        if (type === 'all')
+          document.getElementById('tab-all').classList.add('active-tab');
+        else if (type === 'Instrumental')
+          document
+            .getElementById('tab-instrumental')
+            .classList.add('active-tab');
+        else if (type === 'Song')
+          document.getElementById('tab-song').classList.add('active-tab');
+
+        // Filter Items
+        items.forEach((item) => {
+          if (type === 'all' || item.getAttribute('data-type') === type) {
+            item.classList.remove('hidden-item');
+          } else {
+            item.classList.add('hidden-item');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

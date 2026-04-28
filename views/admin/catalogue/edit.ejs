@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nyesco | Edit</title>
+</head>
+<body>
+<main class="max-w-3xl mx-auto px-6 py-16">
+  <header class="mb-12 flex justify-between items-end">
+    <div>
+      <h1 class="text-4xl font-black uppercase italic tracking-tighter">Edit Record</h1>
+      <p class="text-nyesco-muted text-xs uppercase tracking-[0.3em] mt-2">ID: <%= item._id %></p>
+    </div>
+    <a href="<%= item.link %>" target="_blank" class="text-[10px] font-bold uppercase tracking-widest border border-nyesco-border px-4 py-2 hover:bg-nyesco-accent hover:text-nyesco-dark transition-all">
+      Preview Link
+    </a>
+  </header>
+
+  <section class="bg-slate-900/40 border border-nyesco-border p-8 rounded-sm shadow-2xl">
+    <form action="/catalogue/update/<%= item._id %>" method="POST" class="space-y-8">
+
+      <div class="space-y-2">
+        <label class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted">Modify Title</label>
+        <input type="text" name="title" value="<%= item.title %>" required
+               class="w-full bg-nyesco-dark border border-nyesco-border p-4 focus:border-nyesco-accent outline-none text-nyesco-accent">
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted">Update Category</label>
+        <select name="type" class="w-full bg-nyesco-dark border border-nyesco-border p-4 focus:border-nyesco-accent outline-none text-nyesco-accent">
+          <option value="Instrumental" <%= item.type === 'Instrumental' ? 'selected' : '' %>>Instrumental</option>
+          <option value="Song" <%= item.type === 'Song' ? 'selected' : '' %>>Song</option>
+        </select>
+      </div>
+
+      <div class="space-y-2">
+        <label class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted">New URL</label>
+        <input type="url" name="link" value="<%= item.link %>" required
+               class="w-full bg-nyesco-dark border border-nyesco-border p-4 focus:border-nyesco-accent outline-none text-nyesco-accent">
+      </div>
+
+      <div class="flex items-center justify-between pt-6 border-t border-nyesco-border">
+        <button type="submit" name="_method" value="DELETE" class="text-xs uppercase font-bold text-red-500 hover:text-red-400">
+          [ Terminate Record ]
+        </button>
+        <button type="submit" class="bg-nyesco-accent text-nyesco-dark px-10 py-3 font-black uppercase tracking-widest text-xs hover:bg-white shadow-[4px_4px_0px_0px_rgba(51,65,85,1)] transition-all">
+          Push Updates
+        </button>
+      </div>
+    </form>
+  </section>
+</main>
+</body>
+</html>
