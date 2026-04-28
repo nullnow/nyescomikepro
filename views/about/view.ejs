@@ -3,35 +3,132 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Page</title>
+    <title>Nyesco | About</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              nyesco: {
+                dark: '#0f172a',
+                accent: '#f8fafc',
+                muted: '#64748b',
+                border: '#334155',
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Ensure the Quill-generated HTML follows the theme */
+      .description-content p {
+        @apply mb-4 leading-relaxed;
+      }
+      .description-content h1,
+      .description-content h2 {
+        @apply text-nyesco-accent font-bold mb-4 mt-6;
+      }
+      .description-content ul {
+        @apply list-disc ml-5 mb-4;
+      }
+      .description-content a {
+        @apply text-nyesco-accent underline decoration-nyesco-muted hover:decoration-nyesco-accent transition-all;
+      }
+    </style>
   </head>
-  <body>
+
+  <body
+    class="bg-nyesco-dark text-nyesco-accent font-sans antialiased min-h-screen"
+  >
     <%- include('../partials/admin-navbar') %>
 
-    <h1>About</h1>
+    <main class="max-w-4xl mx-auto px-6 py-16 md:py-24">
+      <header class="mb-16 flex flex-col items-start gap-4">
+        <div class="h-1 bg-nyesco-accent w-24 mb-4"></div>
+        <h1
+          class="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-none"
+        >
+          About
+        </h1>
+      </header>
 
-    <div style="margin-bottom: 20px"><%- about.description %></div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+        <article class="md:col-span-8">
+          <div class="description-content text-lg text-slate-300">
+            <%- about.description %>
+          </div>
 
-    <a href="/about/edit">
-      <button>Edit About</button>
-    </a>
+          <div class="mt-12">
+            <a
+              href="/about/edit"
+              class="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] group"
+            >
+              <span
+                class="bg-nyesco-accent text-nyesco-dark px-4 py-2 group-hover:bg-white transition-colors"
+                >Edit Bio</span
+              >
+              <span
+                class="text-nyesco-muted group-hover:text-nyesco-accent transition-colors"
+                >→</span
+              >
+            </a>
+          </div>
+        </article>
 
-    <hr />
+        <aside class="md:col-span-4 space-y-12">
+          <section>
+            <h2
+              class="text-xs font-black uppercase tracking-[0.3em] text-nyesco-muted mb-6"
+            >
+              Social Media
+            </h2>
 
-    <h2>Social Media</h2>
+            <ul class="space-y-4">
+              <% socials.forEach(function(s){ %>
+              <li
+                class="border-l border-nyesco-border pl-4 hover:border-nyesco-accent transition-colors"
+              >
+                <a href="<%= s.link %>" target="_blank" class="block">
+                  <span
+                    class="text-xs text-nyesco-muted uppercase block tracking-widest mb-1"
+                    >Follow on</span
+                  >
+                  <span
+                    class="text-sm font-bold hover:tracking-widest transition-all duration-300 uppercase"
+                    ><%= s.platform %></span
+                  >
+                </a>
+              </li>
+              <% }) %>
+            </ul>
 
-    <ul>
-      <% socials.forEach(function(s){ %>
+            <div class="mt-8">
+              <a
+                href="/about/edit"
+                class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted hover:text-nyesco-accent transition-colors"
+              >
+                [ Modify Social Media ]
+              </a>
+            </div>
+          </section>
 
-      <li>
-        <a href="<%= s.link %>"> <%= s.platform %> </a>
-      </li>
-
-      <% }) %>
-    </ul>
-
-    <a href="/about/edit">
-      <button>Edit Social Media</button>
-    </a>
+          <div class="hidden md:block pt-12">
+            <div
+              class="w-full h-[200px] border border-nyesco-border relative opacity-20"
+            >
+              <div
+                class="absolute inset-0 flex items-center justify-center text-8xl font-black text-nyesco-border select-none"
+              >
+                N
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
   </body>
 </html>
