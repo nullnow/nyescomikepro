@@ -1,110 +1,115 @@
-<%- include('../partials/admin-navbar') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit About</title>
+    <link
+      href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <style>
+      .social-group {
+        border: 1px solid #ddd;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+      .social-group input {
+        display: block;
+        width: 450px;
+        margin-bottom: 8px;
+      }
+      #editor-container {
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/admin-navbar') %>
 
-<h1>Edit About</h1>
+    <h1>Edit About</h1>
 
-<section style="border: 1px solid #ddd; padding: 20px; margin-bottom: 40px">
-  <h2>Bio</h2>
-  <form id="aboutForm" action="/about/edit" method="POST">
-    <textarea id="description" name="description">
-<%- about.description %></textarea
-    >
-    <br /><br />
-    <button type="submit">Save About</button>
-  </form>
-</section>
+    <section style="border: 1px solid #ddd; padding: 20px; margin-bottom: 40px">
+      <h2>Bio</h2>
+      <form id="aboutForm" action="/about/edit" method="POST">
+        <div id="editor-container" style="height: 300px">
+          <%- about.description %>
+        </div>
+        <input type="hidden" name="description" id="description-input" />
 
-<section style="border: 1px solid #ddd; padding: 20px">
-  <h2>Social Media</h2>
-  <form action="/about/socials" method="POST">
-    <div id="social-fields">
-      <% socials.forEach(function(s){ %>
-      <div class="social-group">
-        <input
-          name="platform[]"
-          value="<%= s.platform %>"
-          placeholder="Platform"
-        />
-        <input name="link[]" value="<%= s.link %>" placeholder="Profile Link" />
-        <button type="button" onclick="removeSocial(this)">Remove</button>
-      </div>
-      <% }) %>
-    </div>
+        <br />
+        <button type="submit">Save Bio</button>
+      </form>
+    </section>
 
-    <button type="button" id="add-social">+ Add Social Media</button>
-    <br /><br />
-    <button type="submit">Save Social Media</button>
-  </form>
-</section>
+    <section style="border: 1px solid #ddd; padding: 20px">
+      <h2>Social Media</h2>
+      <form action="/about/socials" method="POST">
+        <div id="social-fields">
+          <% socials.forEach(function(s){ %>
+          <div class="social-group">
+            <input
+              name="platform[]"
+              value="<%= s.platform %>"
+              placeholder="Platform"
+            />
+            <input
+              name="link[]"
+              value="<%= s.link %>"
+              placeholder="Profile Link"
+            />
+            <button type="button" onclick="removeSocial(this)">Remove</button>
+          </div>
+          <% }) %>
+        </div>
 
-<script
-  src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js"
-  referrerpolicy="origin"
-></script>
+        <button type="button" id="add-social">+ Add Social Media</button>
+        <br /><br />
+        <button type="submit">Save Social Media</button>
+      </form>
+    </section>
 
-<script>
-  tinymce.init({
-    selector: '#description',
-    height: 500,
-    menubar: false, // Optional: cleans up the UI
-    plugins: [
-      'advlist',
-      'autolink',
-      'lists',
-      'link',
-      'image',
-      'charmap',
-      'preview',
-      'anchor',
-      'searchreplace',
-      'visualblocks',
-      'code',
-      'fullscreen',
-      'insertdatetime',
-      'media',
-      'table',
-      'code',
-      'help',
-      'wordcount',
-    ],
-    toolbar:
-      'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link code | removeformat',
-
-    // CRITICAL: Ensure the textarea is updated before the form sends
-    setup: function (editor) {
-      editor.on('change', function () {
-        editor.save(); // Syncs content to the underlying textarea
+    <script>
+      // Bio WYSIWYG Text Editor
+      var quill = new Quill('#editor-container', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'blockquote', 'code-block'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['clean'],
+          ],
+        },
       });
-    },
-  });
 
-  // Social Media Dynamic Fields Logic
-  const container = document.getElementById('social-fields');
+      var form = document.getElementById('aboutForm');
+      form.onsubmit = function () {
+        var descriptionInput = document.getElementById('description-input');
+        descriptionInput.value = quill.root.innerHTML;
+        return true;
+      };
 
-  document.getElementById('add-social').addEventListener('click', function () {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'social-group';
-    wrapper.innerHTML = `
+      // Social Media Dynamic Fields Logic
+      const container = document.getElementById('social-fields');
+      document
+        .getElementById('add-social')
+        .addEventListener('click', function () {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'social-group';
+          wrapper.innerHTML = `
             <input name="platform[]" placeholder="Platform" />
             <input name="link[]" placeholder="Profile Link" />
             <button type="button" onclick="removeSocial(this)">Remove</button>
         `;
-    container.appendChild(wrapper);
-  });
+          container.appendChild(wrapper);
+        });
 
-  function removeSocial(btn) {
-    btn.parentElement.remove();
-  }
-</script>
-
-<style>
-  .social-group {
-    border: 1px solid #ddd;
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-  .social-group input {
-    display: block;
-    width: 450px;
-    margin-bottom: 8px;
-  }
-</style>
+      function removeSocial(btn) {
+        btn.parentElement.remove();
+      }
+    </script>
+  </body>
+</html>

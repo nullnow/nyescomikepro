@@ -1,35 +1,37 @@
-<%- include('../partials/admin-navbar') %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Page</title>
+  </head>
+  <body>
+    <%- include('../partials/admin-navbar') %>
 
-<h1>About</h1>
+    <h1>About</h1>
 
-<div style="margin-bottom:20px;">
- <%- about.description %>
-</div>
+    <div style="margin-bottom: 20px"><%- about.description %></div>
 
-<a href="/about/edit">
-<button>
-Edit About
-</button>
-</a>
+    <a href="/about/edit">
+      <button>Edit About</button>
+    </a>
 
-<hr>
+    <hr />
 
-<h2>Social Media</h2>
+    <h2>Social Media</h2>
 
-<ul>
-<% socials.forEach(function(s){ %>
+    <ul>
+      <% socials.forEach(function(s){ %>
 
-<li>
- <a href="<%= s.link %>">
-   <%= s.platform %>
- </a>
-</li>
+      <li>
+        <a href="<%= s.link %>"> <%= s.platform %> </a>
+      </li>
 
-<% }) %>
-</ul>
+      <% }) %>
+    </ul>
 
-<a href="/about/socials/edit">
-<button>
-Edit Social Media
-</button>
-</a>
+    <a href="/about/edit">
+      <button>Edit Social Media</button>
+    </a>
+  </body>
+</html>
