@@ -2,36 +2,218 @@
 
 <h1>Edit About</h1>
 
+<!-- =======================
+ABOUT FORM
+======================== -->
+
+<section
+style="
+border:1px solid #ddd;
+padding:20px;
+margin-bottom:40px;
+"
+>
+
+<h2>Bio</h2>
+
 <form
- action="/about/edit"
- method="POST"
+action="/about/edit"
+method="POST"
 >
 
 <textarea
- name="description"
- rows="14"
- cols="80"
-><%= about.description %></textarea>
+id="description"
+name="description"
+><%- about.description %></textarea>
 
 <br><br>
 
 <button type="submit">
- Save
+Save About
 </button>
 
 </form>
 
-<hr>
+</section>
 
-<h3>Current Social Links</h3>
 
-<ul>
- <% socials.forEach(function(s){ %>
 
- <li>
-   <%= s.platform %> —
-   <%= s.link %>
- </li>
 
- <% }) %>
-</ul>
+<!-- =======================
+SOCIALS FORM
+======================== -->
+
+<section
+style="
+border:1px solid #ddd;
+padding:20px;
+"
+>
+
+<h2>Social Media</h2>
+
+<form
+action="/about/socials"
+method="POST"
+>
+
+<div id="social-fields">
+
+<% socials.forEach(function(s){ %>
+
+<div class="social-group">
+
+<input
+name="platform[]"
+value="<%= s.platform %>"
+placeholder="Platform"
+/>
+
+<input
+name="link[]"
+value="<%= s.link %>"
+placeholder="Profile Link"
+/>
+
+<button
+type="button"
+onclick="removeSocial(this)"
+>
+Remove
+</button>
+
+</div>
+
+<% }) %>
+
+</div>
+
+
+
+<button
+type="button"
+id="add-social"
+>
++ Add Social Media
+</button>
+
+<br><br>
+
+<button type="submit">
+Save Social Media
+</button>
+
+</form>
+
+</section>
+
+
+
+
+<script
+src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js">
+</script>
+
+
+<script>
+
+tinymce.init({
+
+ selector:'#description',
+
+ height:500,
+
+ plugins:[
+  'lists',
+  'link',
+  'code'
+ ],
+
+ toolbar:
+ 'undo redo | bold italic | bullist numlist | link code',
+
+ setup:function(editor){
+   editor.on(
+     'change',
+     function(){
+       editor.save();
+     }
+   );
+ }
+
+});
+
+
+
+const container =
+document.getElementById(
+'social-fields'
+);
+
+
+document
+.getElementById(
+'add-social'
+)
+.addEventListener(
+'click',
+function(){
+
+ const wrapper=
+ document.createElement('div');
+
+ wrapper.className=
+ 'social-group';
+
+ wrapper.innerHTML=`
+
+<input
+name="platform[]"
+placeholder="Platform"
+/>
+
+<input
+name="link[]"
+placeholder="Profile Link"
+/>
+
+<button
+type="button"
+onclick="removeSocial(this)"
+>
+Remove
+</button>
+
+`;
+
+container.appendChild(
+wrapper
+);
+
+}
+);
+
+
+function removeSocial(btn){
+ btn.parentElement.remove();
+}
+
+</script>
+
+
+
+<style>
+
+.social-group{
+ border:1px solid #ddd;
+ padding:12px;
+ margin-bottom:12px;
+}
+
+.social-group input{
+ display:block;
+ width:450px;
+ margin-bottom:8px;
+}
+
+</style>
