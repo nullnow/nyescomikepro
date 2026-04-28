@@ -23,7 +23,7 @@ export class AboutController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  @Render('about/view')
+  @Render('admin/about/view')
   async viewAbout() {
     return {
       about: await this.aboutService.getAbout(),
@@ -36,7 +36,7 @@ export class AboutController {
 
   @UseGuards(JwtAuthGuard)
   @Get('edit')
-  @Render('about/edit')
+  @Render('admin/about/edit')
   async editAbout() {
     return {
       about: await this.aboutService.getAbout(),

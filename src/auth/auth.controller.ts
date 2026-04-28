@@ -40,7 +40,7 @@ export class AuthController {
       sameSite: 'lax',
     });
 
-    return res.redirect('/dashboard');
+    return res.redirect('/catalogue');
   }
 
   // -------------------
