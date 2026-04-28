@@ -7,7 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AboutModule } from './about/about.module';
 import { SocialsModule } from './socials/socials.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { CatalogueModule } from './catalogue/catalogue.module';
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     UsersModule,
     AboutModule,
     SocialsModule,
-    DashboardModule,
+    CatalogueModule,
   ],
   controllers: [AppController],
   providers: [AppService],
