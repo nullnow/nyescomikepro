@@ -24,24 +24,44 @@ export class AboutService {
 
   async updateAbout(description: string) {
     const cleanHtml = sanitizeHtml(description, {
-    allowedTags: [
-      'p', 'br', 'strong', 'em', 'ul', 'ol', 'li', 'a',
-      'h1', 'h2', 'h3', 'blockquote', 'table', 'thead',
-      'tbody', 'tr', 'th', 'td', 'div', 'span'
-    ],
-    allowedAttributes: {
-      'a': ['href', 'target', 'rel'],
-      '*': ['style', 'class']
-    },
-  });
+      allowedTags: [
+        'p',
+        'br',
+        'strong',
+        'em',
+        'ul',
+        'ol',
+        'li',
+        'a',
+        'h1',
+        'h2',
+        'h3',
+        'blockquote',
+        'table',
+        'thead',
+        'tbody',
+        'tr',
+        'th',
+        'td',
+        'div',
+        'span',
+      ],
+      allowedAttributes: {
+        a: ['href', 'target', 'rel'],
+        '*': ['style', 'class'],
+      },
+    });
 
-  return this.aboutModel.findOneAndUpdate(
-    {}, // Find the first document
-    { description: cleanHtml },
-    {
-      upsert: true,
-      new: true,
-      setDefaultsOnInsert: true
-    },
-  ).exec();
+    return this.aboutModel
+      .findOneAndUpdate(
+        {}, // Find the first document
+        { description: cleanHtml },
+        {
+          upsert: true,
+          new: true,
+          setDefaultsOnInsert: true,
+        },
+      )
+      .exec();
+  }
 }
