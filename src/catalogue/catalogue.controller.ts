@@ -6,14 +6,17 @@ import {
   Render,
   Res,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { CatalogueService } from './catalogue.service';
 import express from 'express';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('catalogue')
 export class CatalogueController {
   constructor(private readonly catalogueService: CatalogueService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   @Render('admin/catalogue/index')
   async getCatalogue() {
@@ -24,12 +27,14 @@ export class CatalogueController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('new')
   @Render('admin/catalogue/new')
   async renderCreatePage() {
     return { title: 'Nyesco | New Release' };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('create')
   async createItem(
     @Body() body: { title: string; type: string; link: string },
@@ -40,12 +45,13 @@ export class CatalogueController {
     return res.redirect('/catalogue');
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('delete/:id')
   async deleteItem(@Param('id') id: string, @Res() res: express.Response) {
     await this.catalogueService.delete(id);
     return res.redirect('/catalogue');
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get('edit/:id')
   @Render('admin/catalogue/edit')
   async editPage(@Param('id') id: string) {
@@ -53,6 +59,7 @@ export class CatalogueController {
     return { item };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('update/:id')
   async update(
     @Param('id') id: string,

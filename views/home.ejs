@@ -3,21 +3,314 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>NyescoMikePro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              nyesco: {
+                dark: '#0f172a', // Deep Midnight
+                accent: '#f8fafc', // Industrial White
+                muted: '#64748b', // Slate Gray
+                border: '#334155', // Structural Border
+              },
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Smooth scrolling for anchor links */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar to match theme */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #64748b;
+      }
+
+      /* Tab button states */
+      .tab-trigger {
+        @apply px-6 py-2 text-[10px] font-black uppercase tracking-widest text-nyesco-muted border-r last:border-r-0 border-nyesco-border transition-all hover:bg-nyesco-border/20;
+      }
+      .active-tab {
+        @apply bg-nyesco-accent text-nyesco-dark hover:bg-nyesco-accent;
+      }
+      .hidden-card {
+        display: none !important;
+      }
+    </style>
   </head>
-  <body>
-    <h1>About</h1>
 
-    <div><%- about.description %></div>
+  <body
+    class="bg-nyesco-dark text-nyesco-accent font-sans antialiased min-h-screen selection:bg-nyesco-muted selection:text-white"
+  >
+    <nav
+      class="fixed w-full z-50 bg-nyesco-dark/80 backdrop-blur-md border-b border-nyesco-border/30"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="h-8 w-8 bg-nyesco-accent p-1 shadow-[3px_3px_0px_0px_rgba(51,65,85,1)]"
+          >
+            <img
+              src="/images/nyesco-logo.png"
+              alt="N"
+              class="w-full h-full object-contain brightness-0"
+            />
+          </div>
+          <span class="text-xs font-black uppercase tracking-[0.3em]"
+            >Nyesco</span
+          >
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+          <a
+            href="/login"
+            class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted hover:text-nyesco-accent transition-colors"
+            >Portal Access</a
+          >
+        </div>
+      </div>
+    </nav>
 
-    <hr />
+    <main>
+      <section
+        class="max-w-6xl mx-auto px-6 pt-40 pb-24 border-b border-nyesco-border/20"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div class="hidden lg:block lg:col-span-1">
+            <div
+              class="h-64 w-px bg-gradient-to-b from-nyesco-accent to-transparent opacity-30"
+            ></div>
+          </div>
 
-    <a href="/instrumentals">
-      <button>Instrumentals</button>
-    </a>
+          <div class="lg:col-span-7">
+            <p
+              class="text-[10px] font-black uppercase tracking-[0.6em] text-nyesco-muted mb-6"
+            >
+              Principal Narrative
+            </p>
+            <h1
+              class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85] mb-12"
+            >
+              Building <br />
+              <span class="text-nyesco-muted not-italic">Infrastructure</span>
+            </h1>
+            <div
+              class="prose prose-invert prose-slate max-w-none text-lg leading-relaxed text-slate-300"
+            >
+              <%- about.description %>
+            </div>
+          </div>
 
-    <a href="/songs">
-      <button>Songs</button>
-    </a>
+          <div class="lg:col-span-4">
+            <div
+              class="border border-nyesco-border p-8 rounded-sm bg-slate-900/20 backdrop-blur-sm shadow-2xl relative"
+            >
+              <div
+                class="absolute -top-3 -right-3 h-6 w-6 bg-nyesco-accent"
+              ></div>
+              <p class="text-xs text-nyesco-muted leading-loose italic mb-6">
+                "Specializing in the intersection of technical architecture and
+                creative commercial strategy within the African digital
+                ecosystem."
+              </p>
+              <div
+                class="pt-6 border-t border-nyesco-border flex items-center justify-between"
+              >
+                <span
+                  class="text-[9px] font-black uppercase text-nyesco-muted tracking-widest"
+                  >Status: Online</span
+                >
+                <div
+                  class="h-2 w-2 rounded-full bg-green-500 animate-pulse"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="max-w-6xl mx-auto px-6 py-24">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8"
+        >
+          <div>
+            <h2
+              class="text-4xl font-black uppercase tracking-tighter italic leading-none"
+            >
+              The Catalogue
+            </h2>
+            <p
+              class="text-[10px] uppercase tracking-[0.3em] text-nyesco-muted mt-2"
+            >
+              Sound & Logic Archive
+            </p>
+          </div>
+
+          <nav
+            class="flex border border-nyesco-border rounded-sm overflow-hidden bg-nyesco-dark"
+          >
+            <button
+              onclick="switchTab('all')"
+              id="tab-all"
+              class="tab-trigger active-tab"
+            >
+              All Assets
+            </button>
+            <button
+              onclick="switchTab('Instrumental')"
+              id="tab-instrumental"
+              class="tab-trigger"
+            >
+              Instrumentals
+            </button>
+            <button
+              onclick="switchTab('Song')"
+              id="tab-song"
+              class="tab-trigger"
+            >
+              Songs
+            </button>
+          </nav>
+        </div>
+
+        <div
+          id="catalogue-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 bg-nyesco-border/20"
+        >
+          <% catalogueItems.forEach(function(item) { %>
+          <div
+            class="catalogue-card group bg-nyesco-dark border border-nyesco-border/50 p-10 hover:bg-nyesco-accent transition-all duration-700 cursor-pointer"
+            data-type="<%= item.type %>"
+            onclick="window.open('<%= item.link %>', '_blank')"
+          >
+            <div class="flex flex-col justify-between h-48">
+              <div class="flex justify-between items-start">
+                <span
+                  class="text-[9px] font-black uppercase tracking-[0.2em] text-nyesco-muted group-hover:text-nyesco-dark transition-colors"
+                >
+                  [ <%= item.type %> ]
+                </span>
+                <div
+                  class="w-2 h-2 border border-nyesco-muted group-hover:bg-nyesco-dark group-hover:border-nyesco-dark transition-all"
+                ></div>
+              </div>
+
+              <h3
+                class="text-3xl font-black uppercase tracking-tighter leading-none group-hover:text-nyesco-dark transition-colors"
+              >
+                <%= item.title %>
+              </h3>
+
+              <div
+                class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted group-hover:text-nyesco-dark/50 opacity-0 group-hover:opacity-100 transition-all"
+              >
+                Click to Authorize Stream
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-nyesco-dark border-t border-nyesco-border py-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+          <div class="md:col-span-4">
+            <div
+              class="h-12 w-12 bg-nyesco-accent p-2 shadow-[4px_4px_0px_0px_rgba(51,65,85,1)] mb-6"
+            >
+              <img
+                src="/images/nyesco-logo.png"
+                alt="N"
+                class="w-full h-full object-contain brightness-0"
+              />
+            </div>
+            <p
+              class="text-[10px] font-black uppercase tracking-[0.4em] text-nyesco-muted leading-relaxed"
+            >
+              Nyesco Architectural <br />Digital Systems &copy; 2026
+            </p>
+          </div>
+
+          <div class="md:col-span-4 flex flex-wrap gap-x-10 gap-y-6">
+            <% socials.forEach(function(s){ %>
+            <a href="<%= s.link %>" target="_blank" class="group block">
+              <span
+                class="text-[9px] text-nyesco-muted uppercase block tracking-[0.2em] mb-1"
+                >Link</span
+              >
+              <span
+                class="text-xs font-black uppercase tracking-widest group-hover:text-white transition-colors"
+              >
+                <%= s.platform %>
+              </span>
+            </a>
+            <% }) %>
+          </div>
+
+          <div class="md:col-span-4 md:text-right">
+            <p
+              class="text-[9px] text-nyesco-muted uppercase tracking-[0.5em] mb-4"
+            >
+              Lagos // International
+            </p>
+            <div class="text-xs font-bold uppercase tracking-widest">
+              Built for Scalability.
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function switchTab(type) {
+        const cards = document.querySelectorAll('.catalogue-card');
+        const buttons = document.querySelectorAll('.tab-trigger');
+
+        // Toggle button UI
+        buttons.forEach((btn) => btn.classList.remove('active-tab'));
+        document
+          .getElementById('tab-' + type.toLowerCase())
+          .classList.add('active-tab');
+
+        // Filter cards
+        cards.forEach((card) => {
+          if (type === 'all' || card.getAttribute('data-type') === type) {
+            card.classList.remove('hidden-card');
+          } else {
+            card.classList.add('hidden-card');
+          }
+        });
+      }
+    </script>
   </body>
 </html>
