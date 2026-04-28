@@ -6,7 +6,6 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AboutModule } from './about/about.module';
-import { CatalogueModule } from './catalogue/catalogue.module';
 import { SocialsModule } from './socials/socials.module';
 import { CatalogueModule } from './catalogue/catalogue.module';
 
