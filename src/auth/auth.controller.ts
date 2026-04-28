@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Body, Render, Res, Req } from '@nestjs/common';
-import { Response } from 'express';
+import express from 'express';
 import { AuthService } from './auth.service';
 
 @Controller()
@@ -31,7 +31,7 @@ export class AuthController {
     password: string,
 
     @Res()
-    res: Response,
+    res: express.Response,
   ) {
     const token = await this.authService.login(username, password);
 
@@ -84,7 +84,7 @@ export class AuthController {
   @Get('/logout')
   logout(
     @Res()
-    res: Response,
+    res: express.Response,
   ) {
     res.clearCookie('jwt');
 
