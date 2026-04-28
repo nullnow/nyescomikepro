@@ -1,0 +1,37 @@
+<%- include('../partials/admin-navbar') %>
+
+<h1>Edit About</h1>
+
+<form
+ action="/about/edit"
+ method="POST"
+>
+
+<textarea
+ name="description"
+ rows="14"
+ cols="80"
+><%= about.description %></textarea>
+
+<br><br>
+
+<button type="submit">
+ Save
+</button>
+
+</form>
+
+<hr>
+
+<h3>Current Social Links</h3>
+
+<ul>
+ <% socials.forEach(function(s){ %>
+
+ <li>
+   <%= s.platform %> —
+   <%= s.link %>
+ </li>
+
+ <% }) %>
+</ul>

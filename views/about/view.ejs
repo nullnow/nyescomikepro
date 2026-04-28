@@ -1,0 +1,27 @@
+<%- include('../partials/admin-navbar') %>
+
+<h1>About</h1>
+
+<div style="margin-bottom:30px;">
+   <%- about.description %>
+</div>
+
+<a href="/about/edit">
+   <button>Edit About</button>
+</a>
+
+<hr>
+
+<h3>Social Media</h3>
+
+<ul>
+ <% socials.forEach(function(s){ %>
+
+   <li>
+      <a href="<%= s.link %>">
+         <%= s.platform %>
+      </a>
+   </li>
+
+ <% }) %>
+</ul>
