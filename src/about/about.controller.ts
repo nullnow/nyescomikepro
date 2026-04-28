@@ -65,12 +65,24 @@ export class AboutController {
 
   @UseGuards(JwtAuthGuard)
   @Post('socials')
-  @Post('update') // Or whatever your route is
   async updateSocials(@Body() body, @Res() res: express.Response) {
-    const socialsArray = Array.isArray(body) ? body : [body];
+    const { platform, link } = body;
+    const socialsArray: any = [];
+
+    if (Array.isArray(platform)) {
+      for (let i = 0; i < platform.length; i++) {
+        if (platform[i] && link[i]) {
+          socialsArray.push({
+            platform: platform[i],
+            link: link[i],
+          });
+        }
+      }
+    } else if (platform && link) {
+      socialsArray.push({ platform, link });
+    }
 
     await this.socialsService.replaceAll(socialsArray);
-
     return res.redirect('/about/edit');
   }
 }

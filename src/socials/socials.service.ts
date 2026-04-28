@@ -13,7 +13,11 @@ export class SocialsService {
   }
 
   async replaceAll(newSocials: any[]) {
-    await this.socialModel.deleteMany({});
-    return this.socialModel.insertMany(newSocials);
+    await this.socialModel.deleteMany({}).exec();
+
+    if (newSocials.length > 0) {
+      return this.socialModel.insertMany(newSocials);
+    }
+    return [];
   }
 }
