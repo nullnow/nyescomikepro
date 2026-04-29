@@ -15,6 +15,6 @@ async function bootstrap() {
 
   app.setViewEngine('ejs');
 
-  await app.listen(process.env.PORT ?? 8000, '0.0.0.0');
+  await app.listen(process.env.PORT ?? 8000);
 }
 bootstrap();
