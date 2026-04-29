@@ -20,5 +20,7 @@ import { SocialsService } from '../socials/socials.service';
   controllers: [AboutController],
 
   providers: [AboutService, SocialsService],
+
+  exports: [AboutService],
 })
 export class AboutModule {}
