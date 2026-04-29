@@ -80,8 +80,8 @@
             class="h-8 w-8 bg-nyesco-accent p-1 shadow-[3px_3px_0px_0px_rgba(51,65,85,1)]"
           >
             <img
-              src="/images/nyesco-logo.png"
-              alt="N"
+              src="/nyesco-logo.png"
+              alt=""
               class="w-full h-full object-contain brightness-0"
             />
           </div>
@@ -93,7 +93,7 @@
           <a
             href="/login"
             class="text-[10px] font-bold uppercase tracking-widest text-nyesco-muted hover:text-nyesco-accent transition-colors"
-            >Portal Access</a
+            >Dashboard</a
           >
         </div>
       </div>
@@ -114,44 +114,12 @@
             <p
               class="text-[10px] font-black uppercase tracking-[0.6em] text-nyesco-muted mb-6"
             >
-              Principal Narrative
+              About Me
             </p>
-            <h1
-              class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85] mb-12"
-            >
-              Building <br />
-              <span class="text-nyesco-muted not-italic">Infrastructure</span>
-            </h1>
             <div
               class="prose prose-invert prose-slate max-w-none text-lg leading-relaxed text-slate-300"
             >
               <%- about.description %>
-            </div>
-          </div>
-
-          <div class="lg:col-span-4">
-            <div
-              class="border border-nyesco-border p-8 rounded-sm bg-slate-900/20 backdrop-blur-sm shadow-2xl relative"
-            >
-              <div
-                class="absolute -top-3 -right-3 h-6 w-6 bg-nyesco-accent"
-              ></div>
-              <p class="text-xs text-nyesco-muted leading-loose italic mb-6">
-                "Specializing in the intersection of technical architecture and
-                creative commercial strategy within the African digital
-                ecosystem."
-              </p>
-              <div
-                class="pt-6 border-t border-nyesco-border flex items-center justify-between"
-              >
-                <span
-                  class="text-[9px] font-black uppercase text-nyesco-muted tracking-widest"
-                  >Status: Online</span
-                >
-                <div
-                  class="h-2 w-2 rounded-full bg-green-500 animate-pulse"
-                ></div>
-              </div>
             </div>
           </div>
         </div>
@@ -170,7 +138,7 @@
             <p
               class="text-[10px] uppercase tracking-[0.3em] text-nyesco-muted mt-2"
             >
-              Sound & Logic Archive
+              Instrumentals & Song Archive
             </p>
           </div>
 
@@ -184,6 +152,7 @@
             >
               All Assets
             </button>
+            <span class="px-3">|</span>
             <button
               onclick="switchTab('Instrumental')"
               id="tab-instrumental"
@@ -191,6 +160,7 @@
             >
               Instrumentals
             </button>
+            <span class="px-3">|</span>
             <button
               onclick="switchTab('Song')"
               id="tab-song"
